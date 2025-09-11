@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* global.css ya tailwind ke @layer utilities ke andar daalo */
+.radio-custom {
+  @apply appearance-none w-6 h-6 rounded-full border-2 border-[#3d5245] bg-transparent cursor-pointer transition relative;
+}
+
+/* Border / hover effect */
+.radio-custom:hover {
+  border-color: #38e07b;
+}
+
+/* Checked state */
+.radio-custom:checked {
+  border-color: #38e07b;
+}
+
+/* Inner filled dot */
+.radio-custom:checked::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  background: #38e07b; /* tumhara brand green */
+  border-radius: 50%;
+  transform: translate(-50%, -50%) scale(1);
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Animation ke liye start me hidden */
+.radio-custom::after {
+  transform: translate(-50%, -50%) scale(0);
+}
