@@ -39,42 +39,44 @@ router.post('/quiz/submit', async (req, res) => {
     try {
         const { answers } = req.body;
 
-        const quizId = answers.map(a => a.questionId);
-        const quizs = await Quiz.find({
-            _id: { $in: quizId }
-        });
+
+        const quizIds = answers.map(a => a.questionId);
+        const quizzes = await Quiz.find({ _id: { $in: quizIds } });
+
 
         const streamCount = { Science: 0, Commerce: 0, Arts: 0 };
-        const allskill = [];
+        const allSkills = [];
 
-        quizs.forEach(q => {
+        quizzes.forEach(q => {
             const selected = answers.find(a => a.questionId === q._id.toString());
             if (!selected) return;
 
             const option = q.options.id(selected.selectedOptionId);
             if (option) {
                 streamCount[option.stream]++;
-                allskill.push(...option.skills);
+                allSkills.push(...option.skills);
             }
-        })
+        });
+
 
         const recommendedStream = Object.keys(streamCount).reduce((a, b) =>
-            streamCount[a] > streamCount[b] ? a : b
+            streamCount[a] >= streamCount[b] ? a : b
         );
 
-        const aiFeedback = await getAIFeedback(recommendedStream, allskill);
-        const careers = await getCareerSuggestion(recommendedStream, allskill);
+        const aiFeedback = await getAIFeedback(recommendedStream, allSkills);
+        const careers = await getCareerSuggestion(recommendedStream, allSkills);
 
         res.json({
             recommendedStream,
-            topskills: allskill.slice(0, 3),
+            topskills: allSkills.slice(0, 3),
             careers,
             aiFeedback
         });
+
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Server error" });
     }
-})
+});
 
 module.exports = router;
