@@ -3,15 +3,24 @@ import { FaArrowDownLong } from "react-icons/fa6";
 import { MdOutlineQuiz } from "react-icons/md";
 import { MdOutlineTravelExplore } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { useCareerStore } from "../store/careers";
 
 const StreamSelection = () => {
   const navigate = useNavigate();
   const Sectionref = useRef<HTMLElement | null>(null);
+  const { selectedStream, setStream } = useCareerStore();
 
   const handleScroll = () => {
     if (Sectionref.current) {
       Sectionref.current.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const streamDescriptions: Record<string, string> = {
+    Science: "Explore careers in engineering, medicine, research, and more.",
+    Commerce:
+      "Explore careers in business, finance, accounting, and management.",
+    Arts: "Explore careers in design, literature, social sciences, and creative fields.",
   };
 
   return (
@@ -46,33 +55,28 @@ const StreamSelection = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <label className="group flex flex-col border-2 rounded-2xl cursor-pointer p-6 border-[#29382f] bg-[#1a221e] hover:border-buttonPrimary hover:bg-[#1f2a24] space-y-2">
-              <div className="flex justify-between items-center">
-                <h3 className="font-bold text-xl text-white">Science</h3>
-                <input className="radio-custom" name="stream" type="radio" />
-              </div>
-              <p className="text-gray-200 w-4/5 text-sm mt-2">
-                Explore careers in engineering, medicine, research, and more.
-              </p>
-            </label>
-            <label className="group flex flex-col border-2 rounded-2xl cursor-pointer p-6 border-[#29382f] bg-[#1a221e] hover:border-buttonPrimary hover:bg-[#1f2a24] space-y-2">
-              <div className="flex justify-between items-center">
-                <h3 className="font-bold text-xl text-white">Commerce</h3>
-                <input className="radio-custom" name="stream" type="radio" />
-              </div>
-              <p className="text-gray-200 w-4/5 text-sm mt-2">
-                Discover opportunities in finance, accounting, and business.
-              </p>
-            </label>
-            <label className="group flex flex-col border-2 rounded-2xl cursor-pointer p-6 border-[#29382f] bg-[#1a221e] hover:border-buttonPrimary hover:bg-[#1f2a24] space-y-2">
-              <div className="flex justify-between items-center">
-                <h3 className="font-bold text-xl text-white">Arts</h3>
-                <input className="radio-custom" name="stream" type="radio" />
-              </div>
-              <p className="text-gray-200 w-4/5 text-sm mt-2">
-                Uncover paths in humanities, social sciences, and creative arts.
-              </p>
-            </label>
+            {["Science", "Commerce", "Arts"].map((option) => (
+              <label
+                key={option}
+                className="group flex flex-col border-2 rounded-2xl cursor-pointer p-6 border-[#29382f] bg-[#1a221e] hover:border-buttonPrimary hover:bg-[#1f2a24] space-y-2"
+              >
+                <div className="flex justify-between items-center">
+                  <h3 className="font-bold text-xl text-white">{option}</h3>
+                  <input
+                    onChange={() =>
+                      setStream(option as "Science" | "Commerce" | "Arts")
+                    }
+                    checked={selectedStream === option}
+                    className="radio-custom"
+                    name="stream"
+                    type="radio"
+                  />
+                </div>
+                <p className="text-gray-200 w-4/5 text-sm mt-2">
+                  {streamDescriptions[option]}
+                </p>
+              </label>
+            ))}
           </div>
           <div className="flex items-center justify-center gap-4 mt-12 sm:flex-row">
             <button
@@ -83,7 +87,9 @@ const StreamSelection = () => {
               Take Quiz
             </button>
             <button
-              onClick={() => navigate("/career")}
+              onClick={() => {
+                navigate("/career");
+              }}
               className="flex font-medium items-center gap-2 justify-center text-lg rounded-full px-8 py-4 text-white bg-[#29382f] hover:scale-105 hover:bg-buttonPrimary hover:text-black"
             >
               <MdOutlineTravelExplore />

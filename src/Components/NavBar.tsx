@@ -23,7 +23,17 @@ const NavBar = () => {
             </clipPath>
           </defs>
         </svg>
-        <h1 className="font-bold text-white text-xl">GrowGenie</h1>
+        <h1 className="font-bold text-white text-xl">
+          GrowGenie
+          <span
+            className="ml-4 text-xs font-bold text-white 
+  bg-gradient-to-r from-green-500/80 to-blue-900/80
+  px-3 py-1 rounded-full border border-green-400/50 shadow-lg 
+  transform transition-all hover:scale-110 hover:shadow-xl hover:cursor-pointer"
+          >
+            PREMIUM
+          </span>
+        </h1>
       </div>
       <div className="flex gap-4 items-center">
         <div className="flex gap-1 items-center">

@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require('cors');
 const quizs = require("./routes/quizs.cjs");
+const careers = require("./routes/careers.cjs");
 const dotenv = require('dotenv');
 
 dotenv.config();
@@ -27,6 +28,7 @@ main()
   });
 
 app.use('/api', quizs);
+app.use('/api', careers);
 
 app.listen(port, () => {
   console.log(`🚀 Server running at http://localhost:${port}`);

@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
-const initData = require("./utils/data.cjs");
+const QuizData = require("./utils/data.cjs");
+const CareerData = require('./utils/data2.cjs');
+const Career = require('./models/career.cjs');
 const Quiz = require("./models/quiz.cjs");
 
 async function main() {
@@ -15,9 +17,15 @@ main()
   })
 
 const initDB = async () => {
+  // Quiz data
   await Quiz.deleteMany({});
-  await Quiz.insertMany(initData.data);
+  await Quiz.insertMany(QuizData.data);
   console.log("🎉 Quiz data seeded successfully!");
+
+  // Career data
+  await Career.deleteMany({});
+  await Career.insertMany(CareerData.data);
+  console.log("🎉 Career data seeded successfully!");
 };
 
 initDB();

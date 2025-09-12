@@ -1,11 +1,27 @@
+import React from "react";
 import { MdOutlineQuiz, MdOutlineTravelExplore } from "react-icons/md";
 import { GiMaterialsScience } from "react-icons/gi";
 import { MdAccountBalance } from "react-icons/md";
 import { IoIosColorPalette } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { useCareerStore } from "../store/careers";
 
 const SeniorStreanSelection = () => {
   const navigate = useNavigate();
+  const { selectedStream, setStream } = useCareerStore();
+
+  const streamDescriptions: Record<string, string> = {
+    Science: "Explore careers in engineering, medicine, research, and more.",
+    Commerce:
+      "Explore careers in business, finance, accounting, and management.",
+    Arts: "Explore careers in design, literature, social sciences, and creative fields.",
+  };
+
+  const streamIcons: Record<string, React.ReactNode> = {
+    Science: <GiMaterialsScience color="white" size={25} />,
+    Commerce: <MdAccountBalance color="white" size={25} />,
+    Arts: <IoIosColorPalette color="white" size={25} />,
+  };
 
   return (
     <main className="flex-grow">
@@ -32,47 +48,31 @@ const SeniorStreanSelection = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <label className="group flex flex-col items-center border-2 rounded-2xl cursor-pointer p-6 border-[#29382f] bg-[#1a221e] hover:border-buttonPrimary hover:bg-[#1f2a24] space-y-2">
-              <input className="peer hidden" name="stream" type="radio" />
-              <div className="flex size-12 items-center justify-center rounded-full border-2 border-[#3d5245] bg-[#111714] transition-all group-hover:border-[#38e07b] group-hover:text-[#111714] peer-checked:border-[#38e07b] peer-checked:bg-[#38e07b] peer-checked:text-[#111714]">
-                <GiMaterialsScience color="white" size={25} />
-              </div>
-              <div className="flex flex-col justify-between items-center text-center">
-                <h3 className="font-bold text-xl text-white">Science</h3>
-                <p className="text-gray-200 mx-auto text-sm mt-2">
-                  Focuses on physics, chemistry, biology, and mathematics,
-                  leading to careers in engineering, medicine, and research.
-                </p>
-              </div>
-            </label>
-            <label className="group flex flex-col items-center border-2 rounded-2xl cursor-pointer p-6 border-[#29382f] bg-[#1a221e] hover:border-buttonPrimary hover:bg-[#1f2a24] space-y-2">
-              <input className="peer hidden" name="stream" type="radio" />
-              <div className="flex size-12 items-center justify-center rounded-full border-2 border-[#3d5245] bg-[#111714] transition-all group-hover:border-[#38e07b] group-hover:text-[#111714] peer-checked:border-[#38e07b] peer-checked:bg-[#38e07b] peer-checked:text-[#111714]">
-                <MdAccountBalance color="white" size={25} />
-              </div>
-              <div className="flex flex-col justify-between items-center text-center">
-                <h3 className="font-bold text-xl text-white">Commerce</h3>
-                <p className="text-gray-200 mx-auto text-sm mt-2">
-                  Deals with business studies, accountancy, economics, and
-                  finance, opening doors to careers in banking, finance, and
-                  management.
-                </p>
-              </div>
-            </label>
-            <label className="group flex flex-col border-2 items-center rounded-2xl cursor-pointer p-6 border-[#29382f] bg-[#1a221e] hover:border-buttonPrimary hover:bg-[#1f2a24] space-y-2">
-              <input className="peer hidden" name="stream" type="radio" />
-              <div className="flex size-12 items-center justify-center rounded-full border-2 border-[#3d5245] bg-[#111714] transition-all group-hover:border-[#38e07b] group-hover:text-[#111714] peer-checked:border-[#38e07b] peer-checked:bg-[#38e07b] peer-checked:text-[#111714]">
-                <IoIosColorPalette color="white" size={25} />
-              </div>
-              <div className="flex flex-col justify-between items-center text-center">
-                <h3 className="font-bold text-xl text-white">Arts</h3>
-                <p className="text-gray-200 mx-auto text-sm mt-2">
-                  Encompasses history, geography, political science, literature,
-                  and sociology, leading to careers in teaching, journalism, and
-                  social work.
-                </p>
-              </div>
-            </label>
+            {["Science", "Commerce", "Arts"].map((option) => (
+              <label
+                key={option}
+                className="group flex flex-col items-center border-2 rounded-2xl cursor-pointer p-6 border-[#29382f] bg-[#1a221e] hover:border-buttonPrimary hover:bg-[#1f2a24] space-y-2"
+              >
+                <input
+                  onChange={() =>
+                    setStream(option as "Science" | "Commerce" | "Arts")
+                  }
+                  checked={selectedStream === option}
+                  className="peer hidden"
+                  name="stream"
+                  type="radio"
+                />
+                <div className="flex size-12 items-center justify-center rounded-full border-2 border-[#3d5245] bg-[#111714] transition-all group-hover:border-[#38e07b] group-hover:text-[#111714] peer-checked:border-[#38e07b] peer-checked:bg-[#38e07b] peer-checked:text-[#111714]">
+                  {streamIcons[option]}
+                </div>
+                <div className="flex flex-col justify-between items-center text-center">
+                  <h3 className="font-bold text-xl text-white">{option}</h3>
+                  <p className="text-gray-200 mx-auto text-sm mt-2">
+                    {streamDescriptions[option]}
+                  </p>
+                </div>
+              </label>
+            ))}
           </div>
           <div className="flex items-center justify-center gap-4 mt-12 sm:flex-row">
             <button

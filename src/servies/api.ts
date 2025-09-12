@@ -1,5 +1,5 @@
 import axios from "axios";
-import type { QuizAnswer, QuizQuestion, QuizResult } from "./types";
+import type { CareerData, QuizAnswer, QuizQuestion, QuizResult } from "./types";
 
 const api = axios.create({
   baseURL: "http://localhost:5000/api",
@@ -21,5 +21,15 @@ export const submitAnswers = async (
   answers: QuizAnswer[]
 ): Promise<QuizResult> => {
   const res = await api.post<QuizResult>("/quiz/submit", { answers });
+  return res.data;
+};
+
+//fetch Careers
+export const getCareers = async (
+  stream?: "Science" | "Commerce" | "Arts" | null
+): Promise<CareerData[]> => {
+  const res = await api.get("/careers", {
+    params: stream ? { stream } : {},
+  });
   return res.data;
 };

@@ -23,3 +23,23 @@ export interface QuizResult {
   careers: { title: string; description?: string }[];
   aiFeedback: string;
 }
+
+export interface CareerRoadmap {
+  title: string;
+  steps: string[];
+}
+
+export interface CareerColleges {
+  name: string;
+  description: string;
+}
+
+export interface CareerData {
+  title: string;
+  description: string;
+  stream: "Science" | "Commerce" | "Arts";
+  avgSalary: string;
+  topColleges: CareerColleges[];
+  roadmap: CareerRoadmap[];
+  img: string;
+}
