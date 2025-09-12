@@ -9,7 +9,7 @@ const client = new OpenAI({
 async function getAIFeedback(stream, skills) {
     const prompt = `This student is best suited for the ${stream} stream.
 They have skills in ${skills.join(", ")}.
-Write a motivational feedback (5-6 sentences) explaining why they might succeed in this stream.`;
+Write a motivational feedback (3-4 sentences) explaining why they might succeed in this stream.`;
 
     const response = await client.chat.completions.create({
         model: "Qwen/Qwen3-Next-80B-A3B-Thinking:novita",

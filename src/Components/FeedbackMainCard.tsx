@@ -1,7 +1,19 @@
 import { FaRegStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-const FeedbackMainCard = () => {
+interface FeedbackMainCardProps {
+  Career: { title: string };
+  Stream: string;
+  Feedback: string;
+  Skills: string[];
+}
+
+const FeedbackMainCard = ({
+  Career,
+  Stream,
+  Feedback,
+  Skills,
+}: FeedbackMainCardProps) => {
   const navigate = useNavigate();
 
   return (
@@ -20,13 +32,12 @@ const FeedbackMainCard = () => {
             Top Recommendations
           </span>
           <h2 className="text-gray-100 text-2xl mt-1 font-bold leading-tight tracking-[-0.015em]">
-            Software Engineer
+            {Career.title}
           </h2>
           <p className="text-gray-500 text-base font-normal leading-relaxed mt-3 mb-6">
-            {" "}
-            Based on your interests in technology and problem-solving, a career
-            as a Software Engineer is highly recommended. This role involves
-            designing, developing, and testing software applications.
+            {Feedback}
+            {Stream}
+            {Skills}
           </p>
           <button
             onClick={() => navigate("/")}
