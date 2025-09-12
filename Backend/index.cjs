@@ -1,18 +1,18 @@
 const mongoose = require("mongoose");
-const initData = require("./data.js");
-const Quiz = require("../models/quiz.js");
+const initData = require("./utils/data.cjs");
+const Quiz = require("./models/quiz.cjs");
 
 async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/Grow-genie");
+  await mongoose.connect("mongodb://localhost/Grow-genie");
   console.log("✅ MongoDB connected for seeding");
 }
 
 main()
-    .then(() => {
-        console.log("connection successful");
-    }).catch((err) => {
-        console.log(err);
-    })
+  .then(() => {
+    console.log("connection successful");
+  }).catch((err) => {
+    console.log(err);
+  })
 
 const initDB = async () => {
   await Quiz.deleteMany({});
