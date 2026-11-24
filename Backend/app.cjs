@@ -19,7 +19,8 @@ app.use(
     origin: [
       "http://localhost:5173",
       "http://localhost:4173",
-      "https://grow-genie-kappa.vercel.app"
+      "https://grow-genie-kappa.vercel.app",
+      "https://careerverse-webai.vercel.app"
     ],
     credentials: true,
   })
