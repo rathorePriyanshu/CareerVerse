@@ -3,9 +3,11 @@ const { SYSTEM_PROMPT, userRoadmapPrompt } = require("./methods.cjs")
 
 
 const client = new OpenAI({
-    baseURL: "https://router.huggingface.co/v1",
-    apiKey: process.env.OPENAI_API_KEY,
+    baseURL: "https://api.groq.com/openai/v1",
+    apiKey: process.env.GROQ_API_KEY,
 });
+
+const MODEL = "openai/gpt-oss-20b";
 
 async function getAIFeedback(stream, skills) {
     const prompt = `This student is best suited for the ${stream} stream.
@@ -13,7 +15,7 @@ They have skills in ${skills.join(", ")}.
 Write a motivational feedback (3-4 sentences) explaining why they might succeed in this stream.`;
 
     const response = await client.chat.completions.create({
-        model: "Qwen/Qwen3-Next-80B-A3B-Thinking:novita",
+        model: MODEL,
         messages: [{ role: "user", content: prompt }],
     });
 
@@ -26,7 +28,7 @@ Suggest 4 career paths they might succeed in.
 Only output the career names, separated by commas.`;
 
     const response = await client.chat.completions.create({
-        model: "Qwen/Qwen2.5-1.5B-Instruct:featherless-ai",
+        model: MODEL,
         messages: [{ role: "user", content: prompt }],
     });
 
@@ -40,7 +42,7 @@ Only output the career names, separated by commas.`;
 
 async function getRoadmapFromAI(career_name, country) {
     const response = await client.chat.completions.create({
-        model: "Qwen/Qwen2.5-1.5B-Instruct:featherless-ai",
+        model: MODEL,
         messages: [
             { role: "system", content: SYSTEM_PROMPT },
             { role: "user", content: userRoadmapPrompt(career_name, country) }

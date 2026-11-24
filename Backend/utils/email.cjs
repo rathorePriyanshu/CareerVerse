@@ -8,7 +8,7 @@ const apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
 async function sendEmail(to, html) {
     const email = {
         sender: {
-            name: "GrowGenie",
+            name: "CareerVerse",
             email: process.env.EMAIL_FROM,
         },
         to: [{ email: to }],

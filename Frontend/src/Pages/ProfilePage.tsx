@@ -69,7 +69,7 @@ const ProfilePage = () => {
             ></div>
             <div className="flex flex-col">
               <h1 className="text-base text-white font-medium leading-normal">
-                Grow Genie
+                CareerVerse
               </h1>
               <p className="text-sm text-white/40 font-normal leading-normal">
                 Career Guidance
@@ -106,7 +106,7 @@ const ProfilePage = () => {
                     {user?.name || user?.email}
                   </p>
                   <p className="text-sm sm:text-base font-normal leading-normal text-white/40">
-                    Grow Genie User
+                    CareerVerse User
                   </p>
                   <div className="flex gap-2 pt-2 flex-wrap">
                     <div className="shrink-0 flex gap-x-2 items-center justify-center px-3 rounded-lg bg-buttonPrimary/20 h-7">

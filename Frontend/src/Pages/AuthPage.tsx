@@ -79,7 +79,7 @@ const AuthPage = () => {
                 Welcome!
               </h1>
               <p className="w-full text-white/70 font-normal leading-normal text-base text-center pb-10">
-                Continue your journey with GrowGenie
+                Continue your journey with CareerVerse
               </p>
               <form
                 noValidate

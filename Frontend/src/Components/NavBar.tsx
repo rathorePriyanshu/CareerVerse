@@ -69,7 +69,7 @@ const NavBar = () => {
                 </defs>
               </svg>
               <h1 className="font-bold text-center text-white text-xl">
-                GrowGenie
+                CareerVerse
               </h1>
             </div>
           </button>
